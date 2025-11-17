@@ -10,3 +10,4 @@ yarn-debug.log*
 # Builds
 frontend/dist
 backend/dist
+.vscode
