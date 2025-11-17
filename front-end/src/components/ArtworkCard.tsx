@@ -14,7 +14,7 @@ export default function ArtworkCard({ artwork }: ArtworkCardProps) {
             className="card block no-underline text-gray-900 hover:shadow-sm transition"
         >
             {image_url ? (
-                <img src={image_url} alt={title} className="w-full h-48 object-cover" />
+                <img src={image_url} alt={title} className="w-full h-48 object-contain bg-gray-200" />
             ) : (
                 <div className="h-48 bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
                     (Pas d’image)

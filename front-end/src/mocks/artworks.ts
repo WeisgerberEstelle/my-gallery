@@ -8,7 +8,7 @@ export const MOCK_ARTWORKS: Artwork[] = [
         description: "Peinture emblématique du mouvement impressionniste.",
         categories: ["peinture", "impressionnisme"],
         image_url:
-            "https://upload.wikimedia.org/wikipedia/commons/3/34/Claude_Monet%2C_Impression%2C_soleil_levant.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/5/54/Claude_Monet%2C_Impression%2C_soleil_levant.jpg",
     },
     {
         id: 2,
