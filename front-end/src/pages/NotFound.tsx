@@ -4,6 +4,5 @@ export default function NotFound() {
             <h1 className="text-2xl font-bold">Page introuvable</h1>
             <p className="text-gray-600">La ressource demandée n’existe pas.</p>
         </div>
-    )
+    );
 }
-  
