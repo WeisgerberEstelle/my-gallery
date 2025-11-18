@@ -44,9 +44,11 @@ export const MOCK_ARTWORKS: Artwork[] = [
     },
 ];
 
-/**
- * Retourne une œuvre mockée par son ID.
- */
 export function getMockArtwork(id: number): Artwork | undefined {
     return MOCK_ARTWORKS.find((a) => a.id === id);
+}
+
+export function getMockCategories(): string[] {
+    const all = MOCK_ARTWORKS.flatMap((a) => a.categories);
+    return Array.from(new Set(all)).sort();
 }
