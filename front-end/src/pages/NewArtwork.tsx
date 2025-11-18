@@ -60,11 +60,9 @@ export default function NewArtworkPage(): JSX.Element {
 
     function toggleCategory(cat: string): void {
         setSelectedCategories((prev) =>
-            prev.includes(cat)
-                ? prev.filter((c) => c !== cat)
-                : [...prev, cat]
+            prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat],
         );
-    }    
+    }
 
     return (
         <div className="max-w-lg mx-auto mt-8">
@@ -135,7 +133,7 @@ export default function NewArtworkPage(): JSX.Element {
                     type="submit"
                     disabled={!isFormValid || loading}
                     className={`btn mt-2 ${
-                        (!isFormValid || loading)
+                        !isFormValid || loading
                             ? "opacity-50 cursor-not-allowed bg-gray-200 text-gray-400 border-gray-300"
                             : ""
                     }`}
