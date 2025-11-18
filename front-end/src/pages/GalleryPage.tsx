@@ -7,7 +7,7 @@ import { MOCK_ARTWORKS, getMockCategories } from "../mocks/artworks";
 
 export default function GalleryPage() {
     const [artworks, setArtworks] = useState<Artwork[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [categories, setCategories] = useState<string[]>([]);
     const [category, setCategory] = useState<string>("");
@@ -28,7 +28,7 @@ export default function GalleryPage() {
         }
     };
 
-    const filteredItems = useMemo(() => {
+    const filteredItems: Artwork[] = useMemo(() => {
         return artworks.filter((a) => {
             const matchCategory = !category || a.categories.includes(category);
             const lowerQ = query.toLowerCase().trim();
@@ -39,14 +39,14 @@ export default function GalleryPage() {
             return matchCategory && matchQuery;
         });
     }, [artworks, category, query]);
-    
+
     useEffect(() => {
         fetchData();
     }, []);
 
     return (
         <div>
-            {error && <ErrorBanner message={error} onRetry={()=>{}} />}
+            {error && <ErrorBanner message={error} onRetry={() => {}} />}
 
             <div className="flex flex-col sm:flex-row gap-2 mb-4">
                 <select
