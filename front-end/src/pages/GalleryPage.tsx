@@ -1,26 +1,27 @@
 import { useEffect, useMemo, useState } from "react";
-import type { Artwork } from "../types";
+import type { Artwork, Category } from "../types";
 import SkeletonCard from "../components/SkeletonCard";
 import ErrorBanner from "../components/ErrorBanner";
 import ArtworkCard from "../components/ArtworkCard";
-import { MOCK_ARTWORKS, getMockCategories } from "../mocks/artworks";
+import { getArtworks, getCategories } from "../api/routes";
 
 export default function GalleryPage() {
     const [artworks, setArtworks] = useState<Artwork[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const [categories, setCategories] = useState<string[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
     const [category, setCategory] = useState<string>("");
     const [query, setQuery] = useState<string>("");
 
-    const fetchData = async (): Promise<void> => {
+    async function fetchData(): Promise<void> {
         try {
             setError(null);
             setLoading(true);
 
-            await new Promise((r) => setTimeout(r, 400));
-            setArtworks(MOCK_ARTWORKS);
-            setCategories(getMockCategories());
+            const artworks = await getArtworks();
+            setArtworks(artworks);
+            const categories = await getCategories();
+            setCategories(categories);
         } catch (e) {
             setError("Une erreur est survenue lors du chargement des œuvres.");
         } finally {
@@ -55,9 +56,9 @@ export default function GalleryPage() {
                     onChange={(e) => setCategory(e.target.value)}
                 >
                     <option value="">Toutes les catégories</option>
-                    {categories.map((c) => (
-                        <option key={c} value={c}>
-                            {c}
+                    {categories.map((cat) => (
+                        <option key={cat.id} value={cat.name}>
+                            {cat.name}
                         </option>
                     ))}
                 </select>

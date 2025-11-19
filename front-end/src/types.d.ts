@@ -5,4 +5,10 @@ export interface Artwork {
     description?: string;
     categories: string[];
     image_url?: string | null;
+    created_at: string;
+}
+
+export interface Category {
+    id: number;
+    name: string;
 }
