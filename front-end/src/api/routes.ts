@@ -17,3 +17,8 @@ export async function getCategories(): Promise<Category[]> {
     const res = await api.get("/categories");
     return res.data;
 }
+
+export async function getArtwork(id: number | string): Promise<Artwork> {
+    const res = await api.get(`/artworks/${id}`);
+    return res.data;
+}
