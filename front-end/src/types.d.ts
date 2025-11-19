@@ -6,3 +6,8 @@ export interface Artwork {
     categories: string[];
     image_url?: string | null;
 }
+
+export interface Category {
+    id: number;
+    name: string;
+}
