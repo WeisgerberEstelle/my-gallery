@@ -12,6 +12,9 @@
     .chip {
         @apply text-xs px-2 py-1 rounded-full bg-gray-100;
     }
+    .back-link {
+        @apply text-sm underline text-gray-600 hover:text-gray-800 inline-block;
+    }
 }
 
 :root {
