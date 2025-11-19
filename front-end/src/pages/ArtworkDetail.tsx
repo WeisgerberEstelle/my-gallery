@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import type { Artwork } from "../types";
 import { useEffect, useState } from "react";
 import { getArtwork } from "../api/routes";
+import BackLink from "../components/BackLink";
 
 export default function ArtworkDetail() {
     const { id } = useParams<{ id: string }>();
@@ -35,7 +36,7 @@ export default function ArtworkDetail() {
         return (
             <div className="space-y-2">
                 <p className="text-red-600">{error}</p>
-                <Link to="/" className="back-link">← Retour à la galerie</Link>
+                <BackLink to="/" label="Retour à la galerie" />
             </div>
         );
     }
