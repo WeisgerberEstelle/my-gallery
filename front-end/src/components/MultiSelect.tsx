@@ -1,10 +1,12 @@
 import { useState, type JSX } from "react";
+import type { Category } from "../types";
+
 
 interface MultiSelectProps {
     label?: string;
-    options: string[];
-    selected: string[];
-    onChange: (next: string[]) => void;
+    options: Category[];
+    selected: Category[];
+    onChange: (next: Category[]) => void;
 }
 
 export default function MultiSelect({
@@ -16,7 +18,7 @@ export default function MultiSelect({
     const [open, setOpen] = useState<boolean>(false);
     const placeholder = `Sélectionner des ${label.toLowerCase()}`;
 
-    function toggleOption(option: string): void {
+    function toggleOption(option: Category): void {
         if (selected.includes(option)) {
             onChange(selected.filter((v) => v !== option));
         } else {
@@ -47,7 +49,7 @@ export default function MultiSelect({
                 <div className="absolute z-20 mt-1 w-full rounded-xl border bg-white shadow-lg max-h-48 overflow-y-auto p-2">
                     {options.map((opt) => (
                         <label
-                            key={opt}
+                            key={opt.id}
                             className="flex items-center gap-3 px-2 py-1 text-sm hover:bg-gray-50 rounded cursor-pointer"
                         >
                             <input
@@ -56,7 +58,7 @@ export default function MultiSelect({
                                 checked={selected.includes(opt)}
                                 onChange={() => toggleOption(opt)}
                             />
-                            {opt}
+                            {opt.name}
                         </label>
                     ))}
                 </div>
@@ -66,10 +68,10 @@ export default function MultiSelect({
                 <div className="flex flex-wrap gap-2 mt-2">
                     {selected.map((opt) => (
                         <span
-                            key={opt}
+                            key={opt.id}
                             className="px-3 py-1 bg-gray-200 rounded-full text-sm"
                         >
-                            {opt}
+                            {opt.name}
                         </span>
                     ))}
                 </div>

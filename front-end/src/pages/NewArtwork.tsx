@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createArtwork } from "../api/routes";
+import { createArtwork, getCategories } from "../api/routes";
 import type { JSX } from "react/jsx-runtime";
-import { getMockCategories } from "../mocks/artworks";
 import MultiSelectCategories from "../components/MultiSelect";
+import type { Category } from "../types";
 
 export default function NewArtworkPage(): JSX.Element {
     const navigate = useNavigate();
@@ -11,18 +11,31 @@ export default function NewArtworkPage(): JSX.Element {
     const [title, setTitle] = useState<string>("");
     const [artistName, setArtistName] = useState<string>("");
     const [description, setDescription] = useState<string>("");
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
     const [image, setImage] = useState<File | null>(null);
 
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<boolean>(false);
-    const [availableCategories, setAvailableCategories] = useState<string[]>([]);
+    const [availableCategories, setAvailableCategories] = useState<Category[]>([]);
 
     const isFormValid = title.trim() !== "" && artistName.trim() !== "";
 
+    async function fetchData(): Promise<void> {
+        try {
+            setLoading(true);
+            setError(null);
+            const categories =  await getCategories();
+            setAvailableCategories(categories);
+        } catch (error) {
+            setError("Erreur lors de la création de l’œuvre.");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
-        setAvailableCategories(getMockCategories());
+        fetchData();
     }, []);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -38,9 +51,9 @@ export default function NewArtworkPage(): JSX.Element {
             form.append("artwork[title]", title);
             form.append("artwork[artist_name]", artistName);
             form.append("artwork[description]", description);
-
-            selectedCategories.forEach((cat) => {
-                form.append("artwork[categories][]", cat);
+            
+            selectedCategories.forEach((cat: Category) => {
+                form.append("artwork[category_ids][]", String(cat.id));
             });
 
             if (image) {
@@ -58,11 +71,11 @@ export default function NewArtworkPage(): JSX.Element {
         }
     }
 
-    function toggleCategory(cat: string): void {
-        setSelectedCategories((prev) =>
-            prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat],
-        );
+    function handleFileChange(event: React.ChangeEvent<HTMLInputElement>): void {
+        const file = event.target.files?.[0] ?? null;
+        setImage(file);
     }
+    
 
     return (
         <div className="max-w-lg mx-auto mt-8">
@@ -125,7 +138,7 @@ export default function NewArtworkPage(): JSX.Element {
                         type="file"
                         accept="image/*"
                         className="input"
-                        onChange={(e) => setImage(e.target.files?.[0] ?? null)}
+                        onChange={handleFileChange}
                     />
                 </div>
 

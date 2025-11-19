@@ -15,11 +15,11 @@ module Api
           render json: { error: "Artwork not found" }, status: :not_found
         end
   
-        def create
-          artwork = Artwork.new(artwork_params.except(:categories))
+        def create 
+          artwork = Artwork.new(artwork_params.except(:category_ids))
   
-          category_names = (artwork_params[:categories] || []).reject(&:blank?)
-          categories = Category.where(name: category_names)
+          category_ids = Array(params[:artwork][:category_ids]).reject(&:blank?)
+          categories = Category.where(id: category_ids)
           artwork.categories = categories
   
           if params[:artwork][:image].present?
@@ -41,7 +41,7 @@ module Api
             :artist_name,
             :description,
             :image,
-            categories: []
+            category_ids: []
           )
         end
   

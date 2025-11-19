@@ -13,7 +13,7 @@ export default function GalleryPage() {
     const [category, setCategory] = useState<string>("");
     const [query, setQuery] = useState<string>("");
 
-    const fetchData = async (): Promise<void> => {
+    async function fetchData(): Promise<void> {
         try {
             setError(null);
             setLoading(true);
