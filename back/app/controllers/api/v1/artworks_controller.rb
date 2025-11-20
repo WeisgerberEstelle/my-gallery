@@ -1,8 +1,8 @@
 module Api
   module V1
     class ArtworksController < ApplicationController
-      before_action :authenticate_user!, except: %i[index show]
-      before_action :require_galleriste!, only: %i[create update destroy]
+      before_action :authenticate_api_v1_user!, except: %i[index show]
+      before_action :require_gallery_owner!, only: %i[create update destroy]
       before_action :set_artwork, only: %i[show update destroy]
 
       def index
@@ -42,9 +42,19 @@ module Api
       end
 
       def destroy
-        @artwork.destroy
-        head :no_content
+        if @artwork.destroy
+          render json: {
+            message: "Artwork successfully deleted",
+            id: @artwork.id
+          }, status: :ok
+        else
+          render json: {
+            error: "Unable to delete the artwork",
+            details: @artwork.errors.full_messages
+          }, status: :unprocessable_entity
+        end
       end
+      
 
       private
 
@@ -76,10 +86,10 @@ module Api
         artwork.image.attach(params[:artwork][:image])
       end
 
-      def require_galleriste!
-        return if current_user&.role.in?(%w[galleriste admin])
+      def require_gallery_owner!
+        return if current_api_v1_user&.role.in?(%w[gallery_owner admin])
 
-        render json: { error: "Non autorisé" }, status: :forbidden
+        render json: { error: "Not allowed" }, status: :forbidden
       end
 
       def serialize_artwork(artwork)

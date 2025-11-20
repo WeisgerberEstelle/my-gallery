@@ -17,7 +17,7 @@ module Api
               }
             }, status: :ok
           else
-            render json: { error: "Email ou mot de passe invalide" }, status: :unauthorized
+            render json: { error: "Invalid mail or password." }, status: :unauthorized
           end
         end
         

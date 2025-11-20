@@ -3,13 +3,13 @@ class User < ApplicationRecord
 		   :recoverable, :rememberable, :validatable,
 		   :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 	
-	def galleriste?
-	  role == "galleriste"
+	def gallery_owner?
+	  role == "gallery_owner"
 	end
 	
 	enum :role, {
-	  visiteur: "visiteur",
-	  galleriste: "galleriste",
+	  visitor: "visitor",
+	  gallery_owner: "gallery_owner",
 	  admin: "admin"
-	}, default: "visiteur"
+	}, default: "visitor"
   end
