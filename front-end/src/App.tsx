@@ -7,6 +7,7 @@ import NewArtwork from "./pages/Artwork/NewArtwork";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminGallery from "./pages/AdminGallery";
+import EditArtworkPage from "./pages/Artwork/EditArtwork";
 
 export default function App() {
     return (
@@ -30,6 +31,14 @@ export default function App() {
                         element={
                             <ProtectedRoute requiredRoles={["admin", "gallery_owner"]}>
                                 <NewArtwork />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/edit/:id"
+                        element={
+                            <ProtectedRoute requiredRoles={["admin", "gallery_owner"]}>
+                                <EditArtworkPage />
                             </ProtectedRoute>
                         }
                     />
