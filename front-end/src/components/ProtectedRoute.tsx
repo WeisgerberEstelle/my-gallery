@@ -1,7 +1,21 @@
-import { Navigate, Outlet } from "react-router-dom";
+// components/ProtectedRoute.tsx
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import type { JSX } from "react";
 
-export default function ProtectedRoute() {
-    const { token } = useAuth();
-    return token ? <Outlet /> : <Navigate to="/login" replace />;
+interface Props {
+    children: JSX.Element;
+    requiredRoles?: string[];
+}
+
+export default function ProtectedRoute({ children, requiredRoles }: Props) {
+    const { user, isAuthenticated } = useAuth();
+
+    if (!isAuthenticated) return <Navigate to="/login" replace />;
+
+    if (requiredRoles && !requiredRoles.includes(user?.role ?? "")) {
+        return <Navigate to="/" replace />;
+    }
+
+    return children;
 }

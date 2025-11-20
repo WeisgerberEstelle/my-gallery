@@ -1,5 +1,4 @@
-// context/AuthContext.tsx
-import axios from "axios";
+import api from "../api/api";
 import {
     createContext,
     useContext,
@@ -43,10 +42,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
     useEffect(() => {
         if (token) {
-            axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+            api.defaults.headers.common["Authorization"] = "Bearer " + token;
             localStorage.setItem(TOKEN_KEY, token);
         } else {
-            delete axios.defaults.headers.common["Authorization"];
+            delete api.defaults.headers.common["Authorization"];
             localStorage.removeItem(TOKEN_KEY);
         }
     }, [token]);

@@ -22,3 +22,7 @@ export async function getArtwork(id: number | string): Promise<Artwork> {
     const res = await api.get(`/artworks/${id}`);
     return res.data;
 }
+
+export async function deleteArtwork(id: number) {
+    return api.delete(`/artworks/${id}`);
+}

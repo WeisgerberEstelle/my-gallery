@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createArtwork, getCategories } from "../api/routes";
+import { createArtwork, getCategories } from "../../api/routes";
 import type { JSX } from "react/jsx-runtime";
-import MultiSelectCategories from "../components/MultiSelect";
-import type { Category } from "../types";
+import MultiSelectCategories from "../../components/MultiSelect";
+import type { Category } from "../../types";
 
 export default function NewArtworkPage(): JSX.Element {
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ export default function NewArtworkPage(): JSX.Element {
         try {
             setLoading(true);
             setError(null);
-            const categories =  await getCategories();
+            const categories = await getCategories();
             setAvailableCategories(categories);
         } catch (error) {
             setError("Erreur lors de la création de l’œuvre.");
@@ -51,7 +51,7 @@ export default function NewArtworkPage(): JSX.Element {
             form.append("artwork[title]", title);
             form.append("artwork[artist_name]", artistName);
             form.append("artwork[description]", description);
-            
+
             selectedCategories.forEach((cat: Category) => {
                 form.append("artwork[category_ids][]", String(cat.id));
             });
@@ -75,7 +75,6 @@ export default function NewArtworkPage(): JSX.Element {
         const file = event.target.files?.[0] ?? null;
         setImage(file);
     }
-    
 
     return (
         <div className="max-w-lg mx-auto mt-8">

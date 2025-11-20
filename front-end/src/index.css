@@ -1,4 +1,51 @@
 @import "tailwindcss";
+
+/* 🎨 Couleurs personnalisées, tons saumon pastels */
+:root {
+    --salmon-rose-light: #FAD1D1;     /* couleur principale : très claire */
+    --salmon-rose: #F5B4B4;           /* hover / accent */
+    --salmon-rose-dark: #E27C7C;      /* contour / texte */
+}
+
+/* 🌈 Utilitaires */
+.bg-salmon-rose-light {
+    background-color: var(--salmon-rose-light);
+}
+
+.bg-salmon-rose {
+    background-color: var(--salmon-rose);
+}
+
+.bg-salmon-rose-dark {
+    background-color: var(--salmon-rose-dark);
+}
+
+.text-salmon-rose-dark {
+    color: var(--salmon-rose-dark);
+}
+
+.border-salmon-rose-dark {
+    border-color: var(--salmon-rose-dark);
+}
+
+/* 💅 Bouton saumon pastel (propre, arrondi, doux) */
+.btn-salmon {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl text-gray-800 transition select-none;
+    background-color: var(--salmon-rose-light);
+    border: 1px solid var(--salmon-rose-dark);
+}
+
+.btn-salmon:hover {
+    background-color: var(--salmon-rose);
+}
+
+.btn-salmon:active {
+    background-color: var(--salmon-rose-dark);
+    color: white;
+    @apply scale-[.98];
+}
+
+/* 🎨 Composants généraux */
 @layer components {
     .btn {
         @apply px-4 py-2 rounded-xl border border-gray-300 hover:bg-gray-50 active:scale-[.99] transition;
@@ -15,7 +62,4 @@
     .back-link {
         @apply text-sm underline text-gray-600 hover:text-gray-800 inline-block;
     }
-}
-
-:root {
 }

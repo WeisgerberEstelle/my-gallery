@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Artwork, Category } from "../types";
 import SkeletonCard from "../components/SkeletonCard";
 import ErrorBanner from "../components/ErrorBanner";
-import ArtworkCard from "../components/ArtworkCard";
+import ArtworkCard from "../components/Artwork/ArtworkCard";
 import { getArtworks, getCategories } from "../api/routes";
 
 export default function GalleryPage() {
@@ -27,7 +27,7 @@ export default function GalleryPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }
 
     const filteredItems: Artwork[] = useMemo(() => {
         return artworks.filter((a) => {
