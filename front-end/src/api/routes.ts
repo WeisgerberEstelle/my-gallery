@@ -8,14 +8,14 @@ export async function getArtworks(): Promise<Artwork[]> {
 
 export async function createArtwork(formData: FormData) {
     const res = await api.post("/artworks", formData, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: { "Content-Type": "multipart/form-data" },
     });
     return res.data;
 }
 
 export async function updateArtwork(id: number, formData: FormData) {
     const res = await api.put(`/artworks/${id}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: { "Content-Type": "multipart/form-data" },
     });
     return res.data;
 }

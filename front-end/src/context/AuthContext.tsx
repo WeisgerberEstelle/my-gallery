@@ -1,12 +1,5 @@
 import api from "../api/api";
-import {
-    createContext,
-    useContext,
-    useEffect,
-    useMemo,
-    useState,
-    type ReactNode,
-} from "react";
+import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { User } from "../types";
 
 interface AuthContextType {
@@ -27,9 +20,7 @@ const TOKEN_KEY = "token";
 const USER_KEY = "user";
 
 const AuthProvider = ({ children }: AuthProviderProps) => {
-    const [token, setToken] = useState<string | null>(
-        localStorage.getItem(TOKEN_KEY)
-    );
+    const [token, setToken] = useState<string | null>(localStorage.getItem(TOKEN_KEY));
     const [user, setUser] = useState<User | null>(() => {
         const data = localStorage.getItem(USER_KEY);
         if (!data) return null;
@@ -68,14 +59,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
             setUser,
             isAuthenticated,
         }),
-        [token, user, isAuthenticated]
+        [token, user, isAuthenticated],
     );
 
-    return (
-        <AuthContext.Provider value={contextValue}>
-            {children}
-        </AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = (): AuthContextType => {

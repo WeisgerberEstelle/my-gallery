@@ -16,7 +16,7 @@ import adminBanner from "./assets/admin-banner.jpg";
 export default function App() {
     const location = useLocation();
     const isAdminGallery = location.pathname === "/admin/gallery";
-    
+
     return (
         <div className="bg-white text-gray-900">
             <Header />

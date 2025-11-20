@@ -14,10 +14,7 @@ export default function NewArtworkPage() {
         <div className="max-w-lg mx-auto mt-8">
             <h1 className="text-2xl font-bold mb-4">Nouvelle œuvre</h1>
 
-            <ArtworkForm
-                submitLabel="Créer l’œuvre"
-                onSubmit={handleCreate}
-            />
+            <ArtworkForm submitLabel="Créer l’œuvre" onSubmit={handleCreate} />
         </div>
     );
 }

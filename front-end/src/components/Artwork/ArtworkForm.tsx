@@ -15,11 +15,7 @@ interface ArtworkFormProps {
     submitLabel: string;
 }
 
-export default function ArtworkForm({
-    initialValues,
-    onSubmit,
-    submitLabel,
-}: ArtworkFormProps) {
+export default function ArtworkForm({ initialValues, onSubmit, submitLabel }: ArtworkFormProps) {
     const [title, setTitle] = useState(initialValues?.title ?? "");
     const [artistName, setArtistName] = useState(initialValues?.artistName ?? "");
     const [description, setDescription] = useState(initialValues?.description ?? "");
@@ -42,9 +38,9 @@ export default function ArtworkForm({
                     const list = initialValues.categories;
                     const mapped =
                         typeof list[0] === "string"
-                            ? (list as string[])
+                            ? ((list as string[])
                                   .map((name) => categories.find((c) => c.name === name))
-                                  .filter(Boolean) as Category[]
+                                  .filter(Boolean) as Category[])
                             : (list as Category[]);
                     setSelectedCategories(mapped);
                 }
@@ -68,9 +64,7 @@ export default function ArtworkForm({
         form.append("artwork[artist_name]", artistName);
         form.append("artwork[description]", description);
 
-        selectedCategories.forEach((cat) =>
-            form.append("artwork[category_ids][]", String(cat.id))
-        );
+        selectedCategories.forEach((cat) => form.append("artwork[category_ids][]", String(cat.id)));
 
         if (image) {
             form.append("artwork[image]", image);
@@ -132,12 +126,7 @@ export default function ArtworkForm({
 
             <div>
                 <label className="text-sm font-medium">Image</label>
-                <input
-                    type="file"
-                    accept="image/*"
-                    className="input"
-                    onChange={handleFileChange}
-                />
+                <input type="file" accept="image/*" className="input" onChange={handleFileChange} />
             </div>
 
             <button

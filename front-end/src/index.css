@@ -2,9 +2,9 @@
 
 /* 🎨 Couleurs personnalisées, tons saumon pastels */
 :root {
-    --salmon-rose-light: #FAD1D1;     /* couleur principale : très claire */
-    --salmon-rose: #F5B4B4;           /* hover / accent */
-    --salmon-rose-dark: #E27C7C;      /* contour / texte */
+    --salmon-rose-light: #fad1d1; /* couleur principale : très claire */
+    --salmon-rose: #f5b4b4; /* hover / accent */
+    --salmon-rose-dark: #e27c7c; /* contour / texte */
 }
 
 /* 🌈 Utilitaires */
