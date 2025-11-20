@@ -1,27 +1,35 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../store/auth";
+import { useAuth } from "../context/AuthContext";
+import { login, logout } from "../api/auth";
 
 export default function Login() {
-    const { isAuth, login, logout } = useAuth();
     const navigate = useNavigate();
+    const { setToken, isAuthenticated, setUser } = useAuth();
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        if (email === "galleriste@example.com" && password === "password123") {
-            login("fake-jwt-token");
+        setError("");
+
+        try {
+            const { user, token } = await login(email, password);
+            setToken(token);
+            setUser(user);
             navigate("/");
-        } else {
-            setError("Identifiants incorrects");
+        } catch (err) {
+            console.error(err);
+            setError("Invalid email or password");
         }
-    };
+    }
 
     const handleLogout = (): void => {
         logout();
+        setToken(null);
+        setUser(null);
         navigate("/");
     };
 
@@ -35,7 +43,7 @@ export default function Login() {
         <div className="max-w-md mx-auto mt-10">
             <h1 className="text-2xl font-bold mb-4">Connexion</h1>
 
-            {isAuth ? (
+            {isAuthenticated ? (
                 <div className="space-y-3">
                     <p className="text-green-600">Connecté ✅</p>
                     <button className="btn" onClick={handleLogout}>
