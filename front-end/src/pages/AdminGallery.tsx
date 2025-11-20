@@ -109,7 +109,6 @@ export default function AdminGallery() {
                     </svg>
                     Ajouter
                 </button>
-
             </div>
 
             {/* Contenu */}
@@ -120,9 +119,7 @@ export default function AdminGallery() {
                     ))}
                 </div>
             ) : filteredItems.length === 0 ? (
-                <div className="text-center text-gray-600 py-20">
-                    Aucune œuvre trouvée.
-                </div>
+                <div className="text-center text-gray-600 py-20">Aucune œuvre trouvée.</div>
             ) : (
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4">
                     {filteredItems.map((a) => (
