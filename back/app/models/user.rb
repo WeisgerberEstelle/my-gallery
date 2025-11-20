@@ -1,10 +1,15 @@
 class User < ApplicationRecord
-	# Include default devise modules. Others available are:
-	# :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
 	devise :database_authenticatable, :registerable,
-			:recoverable, :rememberable, :validatable
-
-	def galleriste?
-		role == "galleriste"
-	end   
-end
+		   :recoverable, :rememberable, :validatable,
+		   :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
+	
+	def gallery_owner?
+	  role == "gallery_owner"
+	end
+	
+	enum :role, {
+	  visitor: "visitor",
+	  gallery_owner: "gallery_owner",
+	  admin: "admin"
+	}, default: "visitor"
+  end
