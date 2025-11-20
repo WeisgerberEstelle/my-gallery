@@ -1,81 +1,86 @@
-import { useState, type JSX } from "react";
+import { Listbox, Transition } from "@headlessui/react";
+import { Fragment } from "react";
 import type { Category } from "../types";
 
-
-interface MultiSelectProps {
-    label?: string;
-    options: Category[];
-    selected: Category[];
-    onChange: (next: Category[]) => void;
+interface Props {
+  label?: string;
+  options: Category[];
+  selected: Category[];
+  onChange: (next: Category[]) => void;
 }
 
 export default function MultiSelect({
-    label = "Catégories",
-    options,
-    selected,
-    onChange
-}: MultiSelectProps): JSX.Element {
-    const [open, setOpen] = useState<boolean>(false);
-    const placeholder = `Sélectionner des ${label.toLowerCase()}`;
+  label = "Catégories",
+  options,
+  selected,
+  onChange,
+}: Props) {
+  const placeholder = `Sélectionner des ${label.toLowerCase()}`;
 
-    function toggleOption(option: Category): void {
-        if (selected.includes(option)) {
-            onChange(selected.filter((v) => v !== option));
-        } else {
-            onChange([...selected, option]);
-        }
-    }
+  return (
+    <div className="w-full">
+      <label className="block text-sm font-medium mb-2">
+        {label}
+      </label>
 
-    return (
-        <div className="relative w-full">
-            <label className="block text-sm font-medium mb-2">
-                {label}
-            </label>
-
-            <button
-                type="button"
-                onClick={() => setOpen(!open)}
-                className="input flex justify-between items-center cursor-pointer"
-            >
-                <span>
-                    {selected.length > 0
-                        ? `${selected.length} sélectionnée(s)`
-                        : placeholder}
-                </span>
-                <span className="ml-2 text-gray-500">▾</span>
-            </button>
-
-            {open && (
-                <div className="absolute z-20 mt-1 w-full rounded-xl border bg-white shadow-lg max-h-48 overflow-y-auto p-2">
-                    {options.map((opt) => (
-                        <label
-                            key={opt.id}
-                            className="flex items-center gap-3 px-2 py-1 text-sm hover:bg-gray-50 rounded cursor-pointer"
-                        >
-                            <input
-                                type="checkbox"
-                                className="h-4 w-4 accent-black"
-                                checked={selected.includes(opt)}
-                                onChange={() => toggleOption(opt)}
-                            />
-                            {opt.name}
-                        </label>
-                    ))}
-                </div>
+      <Listbox value={selected} onChange={onChange} multiple>
+        <div className="relative">
+          <Listbox.Button className="input flex justify-between items-center cursor-pointer">
+            {selected.length > 0 ? (
+              `${selected.length} sélectionnée(s)`
+            ) : (
+              <span className="text-gray-400">{placeholder}</span>
             )}
+            <span className="ml-2 text-gray-500">▾</span>
+          </Listbox.Button>
 
-            {selected.length > 0 && (
-                <div className="flex flex-wrap gap-2 mt-2">
-                    {selected.map((opt) => (
-                        <span
-                            key={opt.id}
-                            className="px-3 py-1 bg-gray-200 rounded-full text-sm"
-                        >
-                            {opt.name}
-                        </span>
-                    ))}
-                </div>
-            )}
+          <Transition
+            as={Fragment}
+            leave="transition ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Listbox.Options className="absolute z-20 mt-1 w-full rounded-xl border bg-white shadow-lg max-h-48 overflow-y-auto p-2">
+              {options.map((opt) => (
+                <Listbox.Option
+                  key={opt.id}
+                  value={opt}
+                  className={({ active }) =>
+                    `cursor-pointer select-none px-3 py-2 rounded ${
+                      active ? "bg-gray-100" : ""
+                    }`
+                  }
+                >
+                  {({ selected }) => (
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="checkbox"
+                        className="h-4 w-4 accent-black"
+                        checked={selected}
+                        readOnly
+                      />
+                      {opt.name}
+                    </div>
+                  )}
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </Transition>
         </div>
-    );
+      </Listbox>
+
+      {selected.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-2">
+          {selected.map((opt) => (
+            <span
+              key={opt.id}
+              className="px-3 py-1 bg-gray-200 rounded-full text-sm"
+            >
+              {opt.name}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
