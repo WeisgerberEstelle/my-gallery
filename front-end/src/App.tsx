@@ -8,12 +8,20 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminGallery from "./pages/AdminGallery";
 import EditArtworkPage from "./pages/Artwork/EditArtwork";
+import Banner from "./components/Banner";
+import banner from "./assets/banner.jpg";
 
 export default function App() {
     return (
         <div className="bg-white text-gray-900">
             <Header />
-            <main className="px-4 py-6">
+            <Banner
+                image={banner}
+                title="Découvrez nos œuvres"
+                overlayOpacity="bg-black/30"
+                height="h-52 md:h-72"
+            />
+            <main className="max-w-6xl mx-auto px-4 py-6">
                 <Routes>
                     <Route path="/" element={<GalleryPage />} />
                     <Route path="/artworks/:id" element={<ArtworkDetail />} />
