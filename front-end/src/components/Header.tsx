@@ -1,15 +1,17 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../store/auth";
+import { useAuth } from "../context/AuthContext";
+import { logout } from "../api/auth";
 
 const linkBase = "px-3 py-2 rounded-xl hover:bg-gray-100";
 const linkActive = "bg-gray-100 font-semibold";
 
 export default function Header() {
-    const { isAuth, logout } = useAuth();
+    const { isAuthenticated, setToken } = useAuth();
     const navigate = useNavigate();
 
     const handleLogout = () => {
         logout();
+        setToken(null);
         navigate("/");
     };
 
@@ -29,7 +31,7 @@ export default function Header() {
                         Galerie
                     </NavLink>
 
-                    {isAuth && (
+                    {isAuthenticated && (
                         <NavLink
                             to="/new"
                             className={({ isActive }) =>
@@ -40,7 +42,7 @@ export default function Header() {
                         </NavLink>
                     )}
 
-                    {isAuth ? (
+                    {isAuthenticated ? (
                         <button onClick={handleLogout} className={linkBase}>
                             Se déconnecter
                         </button>
