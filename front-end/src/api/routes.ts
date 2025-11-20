@@ -1,7 +1,7 @@
 import type { Artwork, Category } from "../types";
 import api from "./api";
 
-export async function getArtworks(): Promise<Artwork[]>{
+export async function getArtworks(): Promise<Artwork[]> {
     const res = await api.get("/artworks");
     return res.data;
 }
@@ -11,6 +11,17 @@ export async function createArtwork(formData: FormData) {
         headers: { "Content-Type": "multipart/form-data" }
     });
     return res.data;
+}
+
+export async function updateArtwork(id: number, formData: FormData) {
+    const res = await api.put(`/artworks/${id}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+    });
+    return res.data;
+}
+
+export async function deleteArtwork(id: number) {
+    return api.delete(`/artworks/${id}`);
 }
 
 export async function getCategories(): Promise<Category[]> {
