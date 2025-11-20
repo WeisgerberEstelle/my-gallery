@@ -22,13 +22,13 @@ export default function Header() {
     };
 
     return (
-        <header className="sticky top-0 z-10 bg-white/70 backdrop-blur border-b border-gray-100">
+        <header className="sticky top-0 z-50 bg-white/70 backdrop-blur border-b border-gray-100">
             <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
                 <NavLink to="/" className="text-lg font-bold cursor-pointer">
                     My Gallery
                 </NavLink>
 
-                <nav className="flex items-center gap-2 ">
+                <nav className="flex items-center gap-2">
                     <NavLink
                         to="/"
                         className={({ isActive }) =>
@@ -57,7 +57,7 @@ export default function Header() {
                                 onClick={() => setIsMenuOpen((prev) => !prev)}
                                 className="flex items-center gap-2 px-2 py-1 rounded-full hover:bg-gray-100 focus:outline-none cursor-pointer"
                             >
-                                {/* Avatar (remplace par une vraie image si tu en as une) */}
+                                {/* Avatar */}
                                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold">
                                     U
                                 </span>
@@ -80,7 +80,7 @@ export default function Header() {
                             </button>
 
                             {isMenuOpen && (
-                                <div className="absolute right-0 mt-2 w-40 rounded-xl border border-gray-100 bg-white shadow-lg py-1 text-sm cursor-pointer">
+                                <div className="absolute right-0 mt-2 w-40 rounded-xl border border-gray-100 bg-white shadow-lg py-1 text-sm cursor-pointer z-50">
                                     {canModify && (
                                         <NavLink
                                             to="/admin/gallery"
