@@ -87,7 +87,7 @@ export default function Login() {
                     <button
                         type="submit"
                         disabled={!isFormValid}
-                        className={`btn mt-2 ${
+                        className={`btn mt-2 cursor-pointer ${
                             !isFormValid
                                 ? "opacity-50 cursor-not-allowed bg-gray-200 text-gray-400 border-gray-300 hover:bg-gray-200 active:scale-100"
                                 : ""
