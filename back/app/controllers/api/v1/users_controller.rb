@@ -1,14 +1,14 @@
+# app/controllers/api/v1/users_controller.rb
 module Api
-    class UsersController < ApplicationController
-      before_action :authenticate_user!
-  
-      def me
-        render json: {
-          id: current_user.id,
-          email: current_user.email,
-          role: current_user.role
-        }
+    module V1
+      class UsersController < BaseController
+        def me
+          render json: {
+            id: current_api_v1_user.id,
+            email: current_api_v1_user.email,
+            role: current_api_v1_user.role
+          }
+        end
       end
     end
-end
-  
+  end
