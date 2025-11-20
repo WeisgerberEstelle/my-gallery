@@ -16,7 +16,7 @@ export interface Category {
 export interface User {
     id: number;
     name: string;
-    role: string
+    role: "gallery_owner" | "admin" | "visitor";
 }
 
 export interface AuthContextType {
