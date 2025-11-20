@@ -5,7 +5,7 @@ import { login, logout } from "../api/auth";
 
 export default function Login() {
     const navigate = useNavigate();
-    const { setToken, isAuthenticated } = useAuth();
+    const { setToken, isAuthenticated, setUser } = useAuth();
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -16,8 +16,9 @@ export default function Login() {
         setError("");
 
         try {
-            const response = await login(email, password);
-            setToken(response.token);
+            const { user, token } = await login(email, password);
+            setToken(token);
+            setUser(user);
             navigate("/");
         } catch (err) {
             console.error(err);
@@ -28,6 +29,7 @@ export default function Login() {
     const handleLogout = (): void => {
         logout();
         setToken(null);
+        setUser(null);
         navigate("/");
     };
 

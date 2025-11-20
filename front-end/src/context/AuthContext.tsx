@@ -1,5 +1,5 @@
 // context/AuthContext.tsx
-import api from "../api/api";
+import axios from "axios";
 import {
     createContext,
     useContext,
@@ -8,10 +8,13 @@ import {
     useState,
     type ReactNode,
 } from "react";
+import type { User } from "../types";
 
 interface AuthContextType {
     token: string | null;
     setToken: (newToken: string | null) => void;
+    user: User | null;
+    setUser: (user: User | null) => void;
     isAuthenticated: boolean;
 }
 
@@ -21,29 +24,52 @@ interface AuthProviderProps {
     children: ReactNode;
 }
 
+const TOKEN_KEY = "token";
+const USER_KEY = "user";
+
 const AuthProvider = ({ children }: AuthProviderProps) => {
     const [token, setToken] = useState<string | null>(
-        localStorage.getItem("token")
+        localStorage.getItem(TOKEN_KEY)
     );
+    const [user, setUser] = useState<User | null>(() => {
+        const data = localStorage.getItem(USER_KEY);
+        if (!data) return null;
+        try {
+            return JSON.parse(data);
+        } catch {
+            return null;
+        }
+    });
 
     useEffect(() => {
         if (token) {
-            api.defaults.headers.common["Authorization"] = "Bearer " + token;
-            localStorage.setItem("token", token);
+            axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+            localStorage.setItem(TOKEN_KEY, token);
         } else {
-            delete api.defaults.headers.common["Authorization"];
-            localStorage.removeItem("token");
+            delete axios.defaults.headers.common["Authorization"];
+            localStorage.removeItem(TOKEN_KEY);
         }
     }, [token]);
 
+    useEffect(() => {
+        if (user) {
+            localStorage.setItem(USER_KEY, JSON.stringify(user));
+        } else {
+            localStorage.removeItem(USER_KEY);
+        }
+    }, [user]);
+
     const isAuthenticated = !!token;
+
     const contextValue = useMemo(
         () => ({
             token,
             setToken,
-            isAuthenticated
+            user,
+            setUser,
+            isAuthenticated,
         }),
-        [token]
+        [token, user, isAuthenticated]
     );
 
     return (
