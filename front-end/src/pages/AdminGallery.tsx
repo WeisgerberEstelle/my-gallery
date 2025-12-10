@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Artwork, Category } from "src/types";
 import SkeletonCard from "src/components/SkeletonCard";
 import ErrorBanner from "src/components/ErrorBanner";
+import ConfirmModal from "src/components/ConfirmModal";
 import { getArtworks, getCategories, deleteArtwork } from "src/api/routes";
 import { useNavigate } from "react-router-dom";
 import ArtworkCard from "src/components/Artwork/ArtworkCard";
@@ -13,10 +14,15 @@ export default function AdminGallery() {
     const [categories, setCategories] = useState<Category[]>([]);
     const [category, setCategory] = useState<string>("");
     const [query, setQuery] = useState<string>("");
+    
+    const [showConfirmModal, setShowConfirmModal] = useState<boolean>(false);
+    const [artworkToDelete, setArtworkToDelete] = useState<number | null>(null);
+    
+    const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
     const navigate = useNavigate();
 
-    // Charger les données
     async function fetchData(): Promise<void> {
         try {
             setError(null);
@@ -34,18 +40,24 @@ export default function AdminGallery() {
         }
     }
 
-    async function handleDelete(id: number) {
-        if (!confirm("Supprimer cette œuvre ?")) return;
+    function handleDeleteRequest(id: number) {
+        setArtworkToDelete(id);
+        setShowConfirmModal(true);
+    }
+
+    async function handleDeleteConfirm() {
+        if (artworkToDelete === null) return;
 
         try {
-            await deleteArtwork(id);
-            setArtworks((prev) => prev.filter((a) => a.id !== id));
+            await deleteArtwork(artworkToDelete);
+            setArtworks((prev) => prev.filter((a) => a.id !== artworkToDelete));
+            setArtworkToDelete(null);
         } catch {
-            alert("Erreur lors de la suppression.");
+            setErrorMessage("Erreur lors de la suppression de l'œuvre.");
+            setShowErrorModal(true);
         }
     }
 
-    // Filtres
     const filteredItems = useMemo(() => {
         return artworks.filter((a) => {
             const matchCategory = !category || a.categories.includes(category);
@@ -111,7 +123,6 @@ export default function AdminGallery() {
                 </button>
             </div>
 
-            {/* Contenu */}
             {loading ? (
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4">
                     {Array.from({ length: 8 }).map((_, i) => (
@@ -128,11 +139,36 @@ export default function AdminGallery() {
                             artwork={a}
                             showAdminActions
                             onEdit={(artwork) => navigate(`/edit/${artwork.id}`)}
-                            onDelete={() => handleDelete(a.id)}
+                            onDelete={() => handleDeleteRequest(a.id)}
                         />
                     ))}
                 </div>
             )}
+
+            <ConfirmModal
+                isOpen={showConfirmModal}
+                onClose={() => {
+                    setShowConfirmModal(false);
+                    setArtworkToDelete(null);
+                }}
+                onConfirm={handleDeleteConfirm}
+                title="Confirmer la suppression"
+                message="Êtes-vous sûr de vouloir supprimer cette œuvre ? Cette action est irréversible."
+                confirmText="Supprimer"
+                cancelText="Annuler"
+                isError
+            />
+
+            <ConfirmModal
+                isOpen={showErrorModal}
+                onClose={() => setShowErrorModal(false)}
+                onConfirm={() => setShowErrorModal(false)}
+                title="Erreur"
+                message={errorMessage}
+                confirmText="OK"
+                cancelText=""
+                isError
+            />
         </div>
     );
 }
