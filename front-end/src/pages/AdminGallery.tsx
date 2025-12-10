@@ -68,7 +68,7 @@ export default function AdminGallery() {
         <div>
             {error && <ErrorBanner message={error} onRetry={fetchData} />}
 
-            <h1 className="text-2xl font-bold mb-4">Gestion des œuvres</h1>
+            <h2 className="text-2xl font-bold mb-4">Gestion des œuvres</h2>
 
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
                 <div className="flex flex-col sm:flex-row gap-3 flex-1">

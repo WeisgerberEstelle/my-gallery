@@ -41,7 +41,7 @@ export default function Login() {
 
     return (
         <div className="max-w-md mx-auto mt-10">
-            <h1 className="text-2xl font-bold mb-4">Connexion</h1>
+            <h2 className="text-2xl font-bold mb-4">Connexion</h2>
 
             {isAuthenticated ? (
                 <div className="space-y-3">

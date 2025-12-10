@@ -12,7 +12,7 @@ export default function NewArtworkPage() {
 
     return (
         <div className="max-w-lg mx-auto mt-8">
-            <h1 className="text-2xl font-bold mb-4">Nouvelle œuvre</h1>
+            <h2 className="text-2xl font-bold mb-4">Nouvelle œuvre</h2>
 
             <ArtworkForm submitLabel="Créer l’œuvre" onSubmit={handleCreate} />
         </div>

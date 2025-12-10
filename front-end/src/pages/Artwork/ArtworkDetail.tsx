@@ -80,7 +80,7 @@ export default function ArtworkDetail() {
                 <img src={artwork.image_url ?? ""} alt={artwork.title} className="rounded-2xl" />
 
                 <div>
-                    <h1 className="text-2xl font-bold">{artwork.title}</h1>
+                    <h2 className="text-2xl font-bold">{artwork.title}</h2>
                     <h3 className="text-gray-600">{artwork.artist_name}</h3>
 
                     <p className="mt-3">{artwork.description}</p>

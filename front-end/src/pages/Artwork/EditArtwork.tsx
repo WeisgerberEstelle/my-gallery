@@ -29,7 +29,7 @@ export default function EditArtworkPage() {
 
     return (
         <div className="max-w-lg mx-auto mt-8">
-            <h1 className="text-2xl font-bold mb-4">Modifier l’œuvre</h1>
+            <h2 className="text-2xl font-bold mb-4">Modifier l’œuvre</h2>
 
             <ArtworkForm
                 initialValues={{
