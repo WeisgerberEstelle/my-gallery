@@ -8,11 +8,12 @@ module Api
       def index
         artworks = Artwork.includes(:categories, image_attachment: :blob)
 
-        render json: artworks.map { |artwork| serialize_artwork(artwork) }
+        render json: ArtworkBlueprint.render(artworks)
+
       end
 
       def show
-        render json: serialize_artwork(@artwork)
+        render json: ArtworkBlueprint.render(@artwork)
       end
 
       def create
@@ -22,7 +23,7 @@ module Api
         attach_image(artwork)
 
         if artwork.save
-          render json: serialize_artwork(artwork), status: :created
+          render json: ArtworkBlueprint.render(artwork), status: :created
         else
           render json: { errors: artwork.errors.full_messages }, status: :unprocessable_entity
         end
@@ -35,7 +36,7 @@ module Api
         attach_image(@artwork) if params[:artwork][:image].present?
 
         if @artwork.save
-          render json: serialize_artwork(@artwork)
+          render json: ArtworkBlueprint.render(@artwork)
         else
           render json: { errors: @artwork.errors.full_messages }, status: :unprocessable_entity
         end
@@ -90,18 +91,6 @@ module Api
         return if current_api_v1_user&.role.in?(%w[gallery_owner admin])
 
         render json: { error: "Not allowed" }, status: :forbidden
-      end
-
-      def serialize_artwork(artwork)
-        {
-          id: artwork.id,
-          title: artwork.title,
-          artist_name: artwork.artist_name,
-          description: artwork.description,
-          categories: artwork.categories.pluck(:name),
-          image_url: artwork.image.attached? ? url_for(artwork.image) : nil,
-          created_at: artwork.created_at&.iso8601
-        }
       end
     end
   end
