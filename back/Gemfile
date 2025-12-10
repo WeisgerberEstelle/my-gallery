@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem "devise"
 gem "devise-jwt"
+gem "blueprinter"
 
 gem "rack-cors"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
