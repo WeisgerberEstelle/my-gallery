@@ -75,7 +75,6 @@ export default function ArtworkDetail() {
                 </button>
             </div>
 
-            {/* Contenu */}
             <div className="grid md:grid-cols-2 gap-6">
                 <img src={artwork.image_url ?? ""} alt={artwork.title} className="rounded-2xl" />
 

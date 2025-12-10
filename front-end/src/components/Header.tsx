@@ -55,7 +55,6 @@ export default function Header() {
                                 onClick={() => setIsMenuOpen((prev) => !prev)}
                                 className="flex items-center gap-2 px-2 py-1 rounded-full hover:bg-gray-100 focus:outline-none cursor-pointer"
                             >
-                                {/* Avatar */}
                                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-sm font-semibold">
                                     U
                                 </span>
