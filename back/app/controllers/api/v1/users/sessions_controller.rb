@@ -10,11 +10,7 @@ module Api
           if user&.valid_password?(params.dig(:user, :password))
             sign_in(user)
             render json: {
-              user: {
-                id: user.id,
-                email: user.email,
-                role: user.role
-              }
+              user: JSON.parse(UserBlueprint.render(user))
             }, status: :ok
           else
             render json: { error: "Invalid mail or password." }, status: :unauthorized
@@ -25,16 +21,12 @@ module Api
         
         def respond_with(resource, _opts = {})
           render json: {
-            user: {
-              id: resource.id,
-              email: resource.email,
-              role: resource.role
-            }
+            user: JSON.parse(UserBlueprint.render(resource))
           }, status: :ok
         end
         
         def respond_to_on_destroy
-          render json: { message: 'Déconnexion réussie' }, status: :ok
+          render json: { message: "Logout successful" }, status: :ok
         end
       end
     end

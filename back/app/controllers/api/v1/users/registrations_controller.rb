@@ -8,21 +8,16 @@ module Api
 
             def respond_with(resource, _opts = {})
                 if resource.persisted?
-                render json: {
-                    user: {
-                    id: resource.id,
-                    email: resource.email,
-                    role: resource.role
-                    }
-                }, status: :created
+                    render json: {
+                    user: JSON.parse(UserBlueprint.render(resource))
+                    }, status: :created
                 else
-                render json: { errors: resource.errors.full_messages }, status: :unprocessable_entity
+                    render json: { errors: resource.errors.full_messages }, status: :unprocessable_entity
                 end
             end
 
             def sign_up_params
                 params.require(:user).permit(:email, :password, :password_confirmation)
-            end
             end
         end
     end
