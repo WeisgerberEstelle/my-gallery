@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import ArtworkForm from "../../components/Artwork/ArtworkForm";
-import { createArtwork } from "../../api/routes";
+import ArtworkForm from "src/components/Artwork/ArtworkForm";
+import { createArtwork } from "src/api/routes";
 
 export default function NewArtworkPage() {
     const navigate = useNavigate();

@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import type { Artwork, Category } from "../types";
-import SkeletonCard from "../components/SkeletonCard";
-import ErrorBanner from "../components/ErrorBanner";
-import { getArtworks, getCategories, deleteArtwork } from "../api/routes";
+import type { Artwork, Category } from "src/types";
+import SkeletonCard from "src/components/SkeletonCard";
+import ErrorBanner from "src/components/ErrorBanner";
+import { getArtworks, getCategories, deleteArtwork } from "src/api/routes";
 import { useNavigate } from "react-router-dom";
-import ArtworkCard from "../components/Artwork/ArtworkCard";
+import ArtworkCard from "src/components/Artwork/ArtworkCard";
 
 export default function AdminGallery() {
     const [artworks, setArtworks] = useState<Artwork[]>([]);

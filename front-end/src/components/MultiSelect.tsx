@@ -1,6 +1,6 @@
 import { Listbox, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import type { Category } from "../types";
+import type { Category } from "src/types";
 
 interface Props {
     label?: string;

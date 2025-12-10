@@ -1,4 +1,4 @@
-import type { Artwork } from "../types";
+import type { Artwork } from "src/types";
 
 export const MOCK_ARTWORKS: Artwork[] = [
     {

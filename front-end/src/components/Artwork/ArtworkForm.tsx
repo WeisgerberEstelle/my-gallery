@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import MultiSelectCategories from "../MultiSelect";
-import type { Category } from "../../types";
-import { getCategories } from "../../api/routes";
+import MultiSelectCategories from "src/components/MultiSelect";
+import type { Category } from "src/types";
+import { getCategories } from "src/api/routes";
 
 interface ArtworkFormProps {
     initialValues?: {

@@ -1,5 +1,5 @@
-import type { User } from "../types";
-import api from "./api";
+import type { User } from "src/types";
+import api from "src/api/api";
 
 interface LoginResponse {
     token: string;

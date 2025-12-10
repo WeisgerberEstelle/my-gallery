@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import type { Artwork } from "../../types";
-import { getArtwork } from "../../api/routes";
+import type { Artwork } from "src/types";
+import { getArtwork } from "src/api/routes";
 
 export default function ArtworkDetail() {
     const { id } = useParams<{ id: string }>();

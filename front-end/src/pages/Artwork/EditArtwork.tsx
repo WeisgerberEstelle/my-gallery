@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { getArtwork, updateArtwork } from "../../api/routes";
-import ArtworkForm from "../../components/Artwork/ArtworkForm";
+import { getArtwork, updateArtwork } from "src/api/routes";
+import ArtworkForm from "src/components/Artwork/ArtworkForm";
 import { useEffect, useState } from "react";
-import type { Artwork } from "../../types";
+import type { Artwork } from "src/types";
 
 export default function EditArtworkPage() {
     const { id } = useParams();

@@ -1,4 +1,4 @@
-import type { Artwork } from "../../types";
+import type { Artwork } from "src/types";
 
 export default function ArtworkCardContent({ title, artist_name, image_url, categories }: Artwork) {
     return (

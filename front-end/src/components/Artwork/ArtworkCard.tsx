@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import type { Artwork } from "../../types";
-import ArtworkCardContent from "./ArtworkCardContent";
+import type { Artwork } from "src/types";
+import ArtworkCardContent from "src/components/Artwork/ArtworkCardContent";
 
 interface ArtworkCardProps {
     artwork: Artwork;

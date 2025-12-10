@@ -1,5 +1,5 @@
-import type { Artwork, Category } from "../types";
-import api from "./api";
+import type { Artwork, Category } from "src/types";
+import api from "src/api/api";
 
 export async function getArtworks(): Promise<Artwork[]> {
     const res = await api.get("/artworks");

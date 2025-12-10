@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import type { Artwork, Category } from "../types";
-import SkeletonCard from "../components/SkeletonCard";
-import ErrorBanner from "../components/ErrorBanner";
-import ArtworkCard from "../components/Artwork/ArtworkCard";
-import { getArtworks, getCategories } from "../api/routes";
+import type { Artwork, Category } from "src/types";
+import SkeletonCard from "src/components/SkeletonCard";
+import ErrorBanner from "src/components/ErrorBanner";
+import ArtworkCard from "src/components/Artwork/ArtworkCard";
+import { getArtworks, getCategories } from "src/api/routes";
 
 export default function GalleryPage() {
     const [artworks, setArtworks] = useState<Artwork[]>([]);

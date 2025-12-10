@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { logout } from "../api/auth";
+import { useAuth } from "src/context/AuthContext";
+import { logout } from "src/api/auth";
 import { useState } from "react";
 
 const linkBase = "px-3 py-2 rounded-xl hover:bg-gray-100";

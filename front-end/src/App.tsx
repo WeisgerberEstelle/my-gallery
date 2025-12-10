@@ -1,17 +1,17 @@
 import { Routes, Route } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import Header from "./components/Header";
-import GalleryPage from "./pages/GalleryPage";
-import ArtworkDetail from "./pages/Artwork/ArtworkDetail";
-import Login from "./pages/Login";
-import NewArtwork from "./pages/Artwork/NewArtwork";
-import NotFound from "./pages/NotFound";
-import ProtectedRoute from "./components/ProtectedRoute";
-import AdminGallery from "./pages/AdminGallery";
-import EditArtworkPage from "./pages/Artwork/EditArtwork";
-import Banner from "./components/Banner";
-import banner from "./assets/banner.jpg";
-import adminBanner from "./assets/admin-banner.jpg";
+import Header from "src/components/Header";
+import GalleryPage from "src/pages/GalleryPage";
+import ArtworkDetail from "src/pages/Artwork/ArtworkDetail";
+import Login from "src/pages/Login";
+import NewArtwork from "src/pages/Artwork/NewArtwork";
+import NotFound from "src/pages/NotFound";
+import ProtectedRoute from "src/components/ProtectedRoute";
+import AdminGallery from "src/pages/AdminGallery";
+import EditArtworkPage from "src/pages/Artwork/EditArtwork";
+import Banner from "src/components/Banner";
+import banner from "src/assets/banner.jpg";
+import adminBanner from "src/assets/admin-banner.jpg";
 
 export default function App() {
     const location = useLocation();
